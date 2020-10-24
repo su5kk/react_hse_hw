@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap');
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.task-style {
+    background-color: rgb(233, 222, 222);
+    position: relative;
+    left: 20vmin;
+    width: 80vmax;
+}
+
+.task-blocks {
+    border: 1px solid;
+    width: inherit;
+}
+
+.task-name {
+    width: max-content;
+    padding: 10px 40px 10px 40px;
+    height: 2.5vmax;
+    text-align: center;
+    position: relative;
+    left: 2%;
+    line-height: 2vmax;
+}
+
+.task-description {
+    width: 20vmax;
+    padding: 10px 40px;
+    height: max-content;
+    text-align: center;
+    position: relative;
+    left: 2%;
+    bottom: 6.5vmax;
+    line-height: 2vmax;
+}
+
+.task-completeness {
+    background-color: lightyellow;
+    border: 1px solid;
+    width: fit-content;
+    height: 2.5vmax;
+    padding: 10px 20px;
+    text-align: center;
+    position: relative;
+    left: 70%;
+}
+
+.btn {
+    border: 1.5px solid black;
+    padding: 12px 24px;
+    background-color: rgb(221, 92, 92);
+    transition-duration: 0.4s;
+    position: relative;
+    left: 38%;
+    bottom: 2vmax;
+}
+
+.btn:hover {
+    background-color: rgb(111, 211, 111);
+    color: white;
+}
