@@ -1,0 +1,22 @@
+.project-block {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5vmax;
+}
+
+.project-blocks {
+    justify-content: center;
+    align-items: center;
+    width: 20vmax;
+    height: 10vmin;
+    &-theme-light {
+        background-color: rgb(112, 199, 195);
+        color: black;
+    }
+
+    &-theme-dark {
+        background-color: rgb(2, 67, 71);
+        color: whitesmoke;
+    }
+}
+
