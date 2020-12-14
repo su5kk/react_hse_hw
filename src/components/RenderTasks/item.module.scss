@@ -3,16 +3,15 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-.task-style {
-    background-color: rgb(233, 222, 222);
-    position: relative;
-    left: 20vmin;
-    width: 80vmax;
-}
-
 .task-blocks {
-    border: 1px solid;
-    width: inherit;
+    &-theme-dark {
+        border: 1px solid rgb(196, 192, 192);
+        width: inherit;
+    }
+    &-theme-light {
+        border: 1px solid rgb(16, 40, 87);
+        transition-duration: 0.2s;
+    }
 }
 
 .task-name {
@@ -23,6 +22,12 @@
     position: relative;
     left: 2%;
     line-height: 2vmax;
+    &-theme-dark {
+        color: blanchedalmond;
+    }
+    &-theme-light {
+        color: black;
+    }
 }
 
 .task-description {
@@ -34,10 +39,15 @@
     left: 2%;
     bottom: 6.5vmax;
     line-height: 2vmax;
+    &-theme-dark {
+        color: blanchedalmond;
+    }
+    &-theme-light {
+        color: black;
+    }
 }
 
 .task-completeness {
-    background-color: lightyellow;
     border: 1px solid;
     width: fit-content;
     height: 2.5vmax;
@@ -45,16 +55,29 @@
     text-align: center;
     position: relative;
     left: 70%;
+    &-theme-dark {
+        color: blanchedalmond;
+    }
+    &-theme-light {
+        color: black;
+    }
 }
 
 .btn {
     border: 1.5px solid black;
     padding: 12px 24px;
-    background-color: rgb(221, 92, 92);
     transition-duration: 0.4s;
     position: relative;
     left: 38%;
     bottom: 2vmax;
+
+    &-theme-dark {
+        background-color: rgb(221, 92, 92);
+    }
+
+    &-theme-light {
+        background-color: rgb(64, 94, 160);
+    }
 }
 
 .btn:hover {
