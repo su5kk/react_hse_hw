@@ -11,12 +11,14 @@ const ProjectComponent = ({
   project,
   theme,
 }) => {
+    console.log(project.id)
     return (
     <div className={cx("project-block", {[`project-block-theme-${theme}`]: true})}>
         
             <div className={cx("project-blocks", {[`project-blocks-theme-${theme}`]: true})}>
                 
                     <h3 className={cx("project-name", {[`project-name-theme-${theme}`]: true})}>
+                        
                         <Link to={`/projects/${project.id}`}>
                             {project.name}
                         </Link>

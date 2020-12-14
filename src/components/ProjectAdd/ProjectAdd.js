@@ -3,12 +3,13 @@ import styles from './ProjectAdd.module.scss'
 import classnames from 'classnames/bind'
 import { handleProjectAdd } from "../../actions/project";
 import { connect } from "react-redux";
+import { nanoid } from 'nanoid'
 
 const cx = classnames.bind(styles)
 
 const mapStateToProps = (state) => ({
   projects: state.project.projects,
-  theme: state.theme.theme
+  theme: state.theme.theme,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -17,7 +18,7 @@ const mapDispatchToProps = (dispatch) => ({
 
   const ProjectAddComponent = ({projects, dispatchOnProjectAdd, theme}) => {
     const [project, setProject] = useState({
-      id: 0,
+      id: nanoid(),
       name: '',
       tasks: []
   })
@@ -34,11 +35,14 @@ const mapDispatchToProps = (dispatch) => ({
   const onSubmit = () => {
     setProject(previousProject => ({
       ...previousProject,
-      id: projects.length + 1,
-      tasks: [...previousProject.tasks]
+      id: nanoid()
     }))
     console.log(project)
     dispatchOnProjectAdd(project)
+    setProject(previousState => ({
+      ...previousState,
+      name: ''
+    }))
   }
   
   return (

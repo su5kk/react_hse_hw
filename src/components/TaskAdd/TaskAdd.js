@@ -14,7 +14,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchOnTaskAdd: (taskInfo) => dispatch(handleTaskAdd(taskInfo))
+  dispatchOnTaskAdd: (taskInfo, projectID) => dispatch(handleTaskAdd(taskInfo, projectID))
 });
 
   const TaskAddComponent = ({projects, dispatchOnTaskAdd, theme, projectID, tasks}) => {
@@ -42,15 +42,22 @@ const mapDispatchToProps = (dispatch) => ({
       }))
   }
   const onSubmit = () => {
+    let checkProject = {};
+    for (let i = 0; i < projects.length; i++) {
+        const project = projects[i];
+        if (project.id === projectID) {
+            checkProject = project;
+            break;
+        }
+    }
     setTask(previousTask => ({
       ...previousTask,
-      id: projects[projectID].tasks.length + 1,
+      id: checkProject.tasks.length + 1,
       completed: false,
       buttonText: "Tap to complete"
     }))
-    projects[projectID].tasks = [...projects[projectID].tasks, task]
+    dispatchOnTaskAdd(task, projectID)
     console.log("Added")
-    console.log(projects[projectID].tasks)
   }
   
   return (

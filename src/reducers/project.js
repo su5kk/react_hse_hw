@@ -1,35 +1,48 @@
 import { PROJECT_ADD } from "../actions/project" 
+import { TASK_ADD } from '../actions/task'
 import {COMPLETED_CHANGE} from "../actions/tasks"
 
 const initialState = {
-    projects: []
+    projects: [],
 }
 
 export const projectReducer = (state = initialState, action) => {
     switch (action.type) {
       case PROJECT_ADD: {
-        console.log()
         return {
-          projects: [...state.projects, action.payload]
+          projects: [...state.projects, action.payload],
         }
       }
-      // Unstable and buggy
-      /*
-      case COMPLETED_CHANGE: {
-      let newTasks = [...state.projects[action.projectID].tasks]
-      newTasks[action.task.id] = action.task
-      console.log(newTasks)
 
-      let currentProj = {...state.projects[action.projectID], tasks: newTasks}
-      state.projects[action.projectID] = currentProj
-
-      let newProjects = [...state.projects]
-      console.log(newProjects)
-      return {
-        projects: newProjects
+      case TASK_ADD: {
+        let changedProject = {};
+        for (let i = 0; i < state.projects.length; i++) {
+            let project = state.projects[i];
+            if (project.id === action.projectID) {
+                changedProject = {
+                  ...project,
+                  tasks: [...project.tasks, action.task]
+                }
+                state.projects[i] = changedProject;
+                break;
+            }
+        }
+        return {
+          projects: [...state.projects],
+        }
       }
-    }
-    */
+      case COMPLETED_CHANGE: {
+        for (let i = 0; i < state.projects.length; i++) {
+          let project = state.projects[i];
+          if (project.id === action.projectID) {
+              state.projects[i].tasks[action.task.id] = action.task
+              break;
+          }
+      }
+      return {
+        projects: [...state.projects]
+      }
+      }
       default:
         return state
       }

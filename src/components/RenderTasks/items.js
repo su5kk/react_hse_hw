@@ -10,11 +10,18 @@ const mapStateToProps = (state) => ({
 
 
 const ItemsComponent = ({projectID, theme, projects}) => {
-    
-    if (projects[projectID] === undefined) {
+    let checkProject = {};
+    for (let i = 0; i < projects.length; i++) {
+        const project = projects[i];
+        if (project.id === projectID) {
+            checkProject = project;
+            break;
+        }
+    }
+    if (checkProject.tasks === undefined) {
         return <Redirect to="/projects" />
     }
-    let tasks = projects[projectID].tasks
+    let tasks = checkProject.tasks
     return (
         <div>
         {
