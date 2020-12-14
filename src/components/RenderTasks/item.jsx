@@ -24,8 +24,7 @@ const ItemComponent = ({
         completed: !task.completed,
         buttonText: task.completed ? "Tap to complete" : "Tap to uncomplete"
       })
-      
-    }
+    
     return (
     <div className={cx("task-blocks", {[`task-blocks-theme-${theme}`]: true})}>
         <p className={cx("task-name", {[`task-name-theme-${theme}`]: true})}>{task.name}</p>
