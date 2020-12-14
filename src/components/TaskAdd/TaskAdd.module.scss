@@ -85,4 +85,33 @@
     }
   }
 }
-  
+.heading {
+  display: flex;
+  flex-direction: row;
+
+  &-theme-dark {
+      color: white;
+  }
+
+  &-theme-white {
+      color: black;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 80vmax;
+
+  &-theme-dark {
+      background-color: rgb(17, 15, 15);
+      border: 1px solid rgb(196, 192, 192);
+  }
+
+  &-theme-light {
+      background-color: blanchedalmond;
+      border: 1px solid rgb(16, 40, 87);
+      transition-duration: 0.2s;
+  }
+} 

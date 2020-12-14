@@ -1,63 +1,79 @@
-import React from 'react';
-import shortid from 'shortid'
+import React, {useState} from 'react';
 import styles from './TaskAdd.module.scss'
 import classnames from 'classnames/bind'
+import shortid from 'shortid'
+import { handleTaskAdd } from "../../actions/task";
+import { connect } from "react-redux";
 
 const cx = classnames.bind(styles)
 
-export default class TaskAdd extends React.Component {
-    state = {
-        name: '',
-        description: ''
-    }
-    
-    handleChange = event => {
-        this.setState({
-            name: event.target.value
-        })
-    }
-    handleChangeDescription = event => {
-        this.setState({
-            description: event.target.value
-        })
-    }
+const mapStateToProps = (state) => ({
+  tasks: state.task.tasks,
+  theme: state.theme.theme
+})
 
-    handleSubmit = (event) =>{
-        event.preventDefault();
-        this.props.onSubmit({
-            name: this.state.name,
-            description: this.state.description,
-            completed: false,
-            id: shortid.generate(),
-            buttonText: "Tap to complete"
-        })
-        this.setState({
-            name: '',
-            description: ''
-        })
-    }
+const mapDispatchToProps = (dispatch) => ({
+  dispatchOnTaskAdd: (taskInfo) => dispatch(handleTaskAdd(taskInfo))
+});
 
-    render() {
-        return ( 
-            <form onSubmit={this.handleSubmit}>
-                <input 
-                    className={cx("input", {[`input-theme-${this.props.theme}`]: true})}
-                    name="name"
-                    value={this.state.name}
-                    onChange={this.handleChange}
-                    placeholder="type in a task"
-                    theme={this.state.theme}
-                />
-                <input 
-                    className={cx("input", {[`input-theme-${this.props.theme}`]: true})}
-                    name="description"
-                    value={this.state.description}
-                    onChange={this.handleChangeDescription}
-                    placeholder="type in a description"
-                    theme={this.state.theme}
-                />
-                <button className={cx("add-btn", {[`add-btn-theme-${this.props.theme}`]: true})} onClick={this.handleSubmit}>add</button>
-            </form>
-        )
-    }
-};
+  const TaskAddComponent = ({tasks, dispatchOnTaskAdd, theme}) => {
+    const [task, setTask] = useState({
+      id: 0,
+      name: '',
+      description: '',
+      completed: false,
+      buttonText: "Tap to complete"
+  })
+
+  const onNameChange = (e) => {
+      e.persist()
+      setTask(previousTask => ({
+          ...previousTask,
+          name: e.target.value
+      }))
+  }
+
+  const onDescriptionChange = (e) => {
+      e.persist()
+      setTask(previousTask => ({
+          ...previousTask,
+          description: e.target.value
+      }))
+  }
+  const onSubmit = () => {
+    setTask(previousTask => ({
+      ...previousTask,
+      id: tasks.length + 1,
+      completed: false,
+      buttonText: "Tap to complete"
+    }))
+    console.log(task)
+    dispatchOnTaskAdd(task)
+  }
+  
+  return (
+    <div className={cx("container", {[`container-theme-${theme}`]: true})}>
+    <h1 className={cx("heading", {[`heading-theme-${theme}`]: true})}>Add task</h1>
+    <input 
+        className={cx("input", {[`input-theme-${theme}`]: true})}
+        name="name"
+        value={task.name}
+        onChange={onNameChange}
+        placeholder="type in a task"
+        theme={theme}
+    />
+    <input 
+        className={cx("input", {[`input-theme-${theme}`]: true})}
+        name="description"
+        value={task.description}
+        onChange={onDescriptionChange}
+        placeholder="type in a description"
+        theme={theme}
+    />
+    <button className={cx("add-btn", {[`add-btn-theme-${theme}`]: true})} onClick={onSubmit}>add</button>
+    </div>
+  )
+}
+  
+
+export const TaskAdd = connect(mapStateToProps, mapDispatchToProps)(TaskAddComponent)
