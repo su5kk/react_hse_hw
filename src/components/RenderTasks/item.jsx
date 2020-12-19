@@ -7,13 +7,14 @@ import {handleCompletedChange} from "../../actions/tasks"
 const cx = classnames.bind(styles)
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchOnCompletedChange: (newCompleted) => dispatch(handleCompletedChange(newCompleted))
+  dispatchOnCompletedChange: (newCompleted, projectID) => dispatch(handleCompletedChange(newCompleted, projectID))
 })
 
 const ItemComponent = ({
   task,
   theme,
-  dispatchOnCompletedChange,
+  projectID,
+  dispatchOnCompletedChange
 }) => {
     const onCompletedChange = (e) => {
       e.preventDefault()
@@ -23,8 +24,9 @@ const ItemComponent = ({
         description: task.description,
         completed: !task.completed,
         buttonText: task.completed ? "Tap to complete" : "Tap to uncomplete"
-      })
-    
+      }, projectID)
+      
+    }
     return (
     <div className={cx("task-blocks", {[`task-blocks-theme-${theme}`]: true})}>
         <p className={cx("task-name", {[`task-name-theme-${theme}`]: true})}>{task.name}</p>

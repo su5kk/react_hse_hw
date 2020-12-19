@@ -1,6 +1,7 @@
 export const COMPLETED_CHANGE = 'COMPLETED_CHANGE'
 
-export const handleCompletedChange = (newCompletedTask) => ({
+export const handleCompletedChange = (newCompletedTask, projectID) => ({
     type: COMPLETED_CHANGE,
-    payload: newCompletedTask
+    projectID: projectID,
+    task: newCompletedTask
   })

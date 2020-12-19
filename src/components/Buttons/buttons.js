@@ -22,7 +22,7 @@ const ButtonsComponent = ({
     dispatchOnThemeChange(e.target.value)
   }
   return (
-    <div className={cx("radios")}>
+    <div className={cx("radios", {[`radios-theme-${theme}`]: true})}>
         <div>
             <input
             type="radio"

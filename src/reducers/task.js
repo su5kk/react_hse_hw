@@ -14,13 +14,15 @@ export const taskReducer = (state = initialState, action) => {
         tasks: [...state.tasks, action.payload] // payload is a change
       }
     }
+    /*
     case COMPLETED_CHANGE: {
       let newTasks = [...state.tasks]
-      newTasks[action.payload.id] = action.payload
+      newTasks[action.task.id] = action.task
       return {
         tasks: newTasks
       }
     }
+    */
     default:
       return state
     }

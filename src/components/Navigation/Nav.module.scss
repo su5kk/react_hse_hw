@@ -1,0 +1,28 @@
+.nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 13vh;
+
+    &-theme-light{
+        background-color: rgb(56, 79, 184);
+        color: white;
+    }
+
+    &-theme-dark {
+        background-color: black;
+        color: white;
+    }
+}
+.nav-elems {
+    width: 40%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+}
+
+.link-nav-bar {
+    color: white;
+    text-decoration: none;
+}

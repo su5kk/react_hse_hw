@@ -1,22 +1,23 @@
 import React, {useState} from 'react';
 import styles from './TaskAdd.module.scss'
 import classnames from 'classnames/bind'
-import shortid from 'shortid'
 import { handleTaskAdd } from "../../actions/task";
 import { connect } from "react-redux";
+import { Redirect } from 'react-router-dom';
 
 const cx = classnames.bind(styles)
 
 const mapStateToProps = (state) => ({
-  tasks: state.task.tasks,
-  theme: state.theme.theme
+  projects: state.project.projects,
+  theme: state.theme.theme,
+  tasks: state.task.tasks
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchOnTaskAdd: (taskInfo) => dispatch(handleTaskAdd(taskInfo))
+  dispatchOnTaskAdd: (taskInfo, projectID) => dispatch(handleTaskAdd(taskInfo, projectID))
 });
 
-  const TaskAddComponent = ({tasks, dispatchOnTaskAdd, theme}) => {
+  const TaskAddComponent = ({projects, dispatchOnTaskAdd, theme, projectID, tasks}) => {
     const [task, setTask] = useState({
       id: 0,
       name: '',
@@ -24,7 +25,7 @@ const mapDispatchToProps = (dispatch) => ({
       completed: false,
       buttonText: "Tap to complete"
   })
-
+  
   const onNameChange = (e) => {
       e.persist()
       setTask(previousTask => ({
@@ -41,14 +42,22 @@ const mapDispatchToProps = (dispatch) => ({
       }))
   }
   const onSubmit = () => {
+    let checkProject = {};
+    for (let i = 0; i < projects.length; i++) {
+        const project = projects[i];
+        if (project.id === projectID) {
+            checkProject = project;
+            break;
+        }
+    }
     setTask(previousTask => ({
       ...previousTask,
-      id: tasks.length + 1,
+      id: checkProject.tasks.length + 1,
       completed: false,
       buttonText: "Tap to complete"
     }))
-    console.log(task)
-    dispatchOnTaskAdd(task)
+    dispatchOnTaskAdd(task, projectID)
+    console.log("Added")
   }
   
   return (
